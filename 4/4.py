@@ -70,7 +70,7 @@ for passaporte in passaportesComTodosOsCampos:
 			if valor[0]!="#" or len(valor) !=7:
 				todosOsCamposValidos = False
 			try:
-				int(valor[-6],16)
+				int(valor[-6:],16)
 			except:
 				todosOsCamposValidos = False
 		elif chave == "ecl":
