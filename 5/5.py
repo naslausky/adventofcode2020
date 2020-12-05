@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #Desafio do dia 05/12/2020
-#a) Receber uma lista de números binários e descobrir qual é o maior (onde F ou L representam 1, e B ou R representam 0)
+#a) Receber uma lista de números binários e descobrir qual é o maior (onde F ou L representam 0, e B ou R representam 1)
 #b) Perceber qual número que está faltando na lista de números.
 
 def SubstituirPorNumeroBinario(numero):
