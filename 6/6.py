@@ -1,6 +1,6 @@
 #Desafio do dia 06/12/2020
 #a) Em cada caso ver quantas letras diferentes apareceram, e somar todas essas ocorrências
-#b) Em cada daso ver quantas letras apareceram em comum por todas as linhas, e somar essas ocorrências
+#b) Em cada caso ver quantas letras apareceram em comum por todas as linhas, e somar essas ocorrências
 
 conjuntoDePerguntasAtual = set()
 listaDeGrupos = []
@@ -8,10 +8,11 @@ listaDeGrupos = []
 #Parte 2
 conjuntoDePerguntasIntersecao = None
 listaDeGruposIntersecao = []
+
 with open ("input.txt") as file:
 	for linha in file:
 		if linha == "\n":
-		#Chegou ao final de um grupo de passageiros
+			#Chegou ao final de um grupo de passageiros
 			listaDeGrupos.append(conjuntoDePerguntasAtual)
 			conjuntoDePerguntasAtual = set()
 
@@ -33,6 +34,7 @@ with open ("input.txt") as file:
 
 #Adiciona o último caso que faltou (dado que o arquivo não termina com linha em branco):
 listaDeGrupos.append(conjuntoDePerguntasAtual)
+#Parte 2
 listaDeGruposIntersecao.append(conjuntoDePerguntasIntersecao)
 
 numeroDeQuestoesRespondidas = 0
