@@ -24,7 +24,7 @@ with open ("input.txt") as file:
 			conjuntoDePerguntasAtual.update(textoASeInserir)
 	
 			#Parte 2 - Verifica a interseção entre os sets
-			if conjuntoDePerguntasIntersecao == None:
+			if conjuntoDePerguntasIntersecao == None: #O primeiro caso é ele mesmo, não precisa fazer interseção.
 				conjuntoDePerguntasIntersecao = set([char for char in textoASeInserir])
 			else:
 				setDoPassageiroAtual = set([char for char in textoASeInserir])
@@ -32,13 +32,10 @@ with open ("input.txt") as file:
 
 #Adiciona o último caso que faltou (dado que o arquivo não termina com linha em branco):
 listaDeGrupos.append(conjuntoDePerguntasAtual)
-#Parte 2
 listaDeGruposIntersecao.append(conjuntoDePerguntasIntersecao)
 
 numeroDeQuestoesRespondidas = sum([len(grupo) for grupo in listaDeGrupos])
-#Parte 2
 numeroDeQuestoesRespondidasPorTodosNoGrupo = sum ([len(grupo) for grupo in listaDeGruposIntersecao])
 
 print ("Soma do número de questões respondidas em cada grupo: "+ str(numeroDeQuestoesRespondidas))
-#Parte 2:
-print("Soma do número de questões respondidas por todos em um mesmo grupo: "+ str(numeroDeQuestoesRespondidasPorTodosNoGrupo))
+print ("Soma do número de questões respondidas por todos em um mesmo grupo: "+ str(numeroDeQuestoesRespondidasPorTodosNoGrupo))
