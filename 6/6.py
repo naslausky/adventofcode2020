@@ -25,11 +25,9 @@ with open ("input.txt") as file:
 	
 			#Parte 2 - Verifica a interseção entre os sets
 			if conjuntoDePerguntasIntersecao == None:
-				conjuntoDePerguntasIntersecao = set()
-				conjuntoDePerguntasIntersecao.update(textoASeInserir)
+				conjuntoDePerguntasIntersecao = set([char for char in textoASeInserir])
 			else:
-				setDoPassageiroAtual = set()
-				setDoPassageiroAtual.update(textoASeInserir)
+				setDoPassageiroAtual = set([char for char in textoASeInserir])
 				conjuntoDePerguntasIntersecao = conjuntoDePerguntasIntersecao.intersection(setDoPassageiroAtual)
 
 #Adiciona o último caso que faltou (dado que o arquivo não termina com linha em branco):
@@ -37,13 +35,9 @@ listaDeGrupos.append(conjuntoDePerguntasAtual)
 #Parte 2
 listaDeGruposIntersecao.append(conjuntoDePerguntasIntersecao)
 
-numeroDeQuestoesRespondidas = 0
-for grupo in listaDeGrupos:
-	numeroDeQuestoesRespondidas += len(grupo)
+numeroDeQuestoesRespondidas = sum([len(grupo) for grupo in listaDeGrupos])
 #Parte 2
-numeroDeQuestoesRespondidasPorTodosNoGrupo = 0
-for grupo in listaDeGruposIntersecao:
-	numeroDeQuestoesRespondidasPorTodosNoGrupo += len(grupo)
+numeroDeQuestoesRespondidasPorTodosNoGrupo = sum ([len(grupo) for grupo in listaDeGruposIntersecao])
 
 print ("Soma do número de questões respondidas em cada grupo: "+ str(numeroDeQuestoesRespondidas))
 #Parte 2:
