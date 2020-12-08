@@ -1,6 +1,6 @@
 #Desafio do dia 08/12/2020
 #a)Receber uma lista de instruções simples (jump, acc e nop). 
-#  Calcular o valor do registrador quando houver a primeira instrução de instrução.
+#  Calcular o valor do registrador quando houver a primeira repetição de instrução.
 #b)Alterar uma instrução para permitir o programa a encerrar devidamente. 
 #  Neste caso, calcular o valor do registrador no término do programa.
 
