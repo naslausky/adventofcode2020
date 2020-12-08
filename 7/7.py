@@ -35,10 +35,7 @@ print("A bolsa dourada pode estar contida dentro de", len(bolsasVerificadas), "b
 
 #Parte 2
 def numeroDeBolsasDentroDeOutra(bolsa):
-	if dicionarioRequisitos[bolsa]:
-		return sum([numero*numeroDeBolsasDentroDeOutra(b) for (b,numero) in dicionarioRequisitos[bolsa].items()])+1
-	else:
-		return 1
+	return sum([numero*numeroDeBolsasDentroDeOutra(b) for (b,numero) in dicionarioRequisitos[bolsa].items()])+1
 
 numeroTotalDeBolsasNecessarias = numeroDeBolsasDentroDeOutra("shiny gold bag")
 numeroTotalDeBolsasNecessarias -= 1 #Excluir a bolsa dourada mais externa
