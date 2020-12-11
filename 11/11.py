@@ -1,6 +1,6 @@
 #Desafio do dia 11/12/2020
 #a)Receber uma matriz de caracteres, e aplicar regras de transição sucessivamente até a matriz estabilizar.
-#  Ao final, contabilizar o número de caractéres "#"
+#  Ao final, contabilizar o número de caracteres "#"
 #b)Idem porém com um outro conjunto de regras.
 
 with open("input.txt") as file:
@@ -85,9 +85,7 @@ while(modificou):
 	modificou, linhas = executarRegras(linhas)
 print("Número de lugares ocupados após primeiro conjunto de regras:", contarLugaresOcupados(linhas))
 
-
 #Parte 2:
-
 linhas = linhasOriginais[:] #Pega a disposição original novamente.
 modificou = True
 while (modificou):
