@@ -33,9 +33,9 @@ dicionarioRequisitos = {int(idOnibus): (int(idOnibus)-indice) for (indice, idOni
 multiplicacaoDeTodosOsModulos = 1 #Valor útil para o teorema chinês dos restos
 for idOnibus,indice in dicionarioRequisitos.items():
 	multiplicacaoDeTodosOsModulos *= idOnibus
+
 #Resposta final: precisa ser congruente a cada indice do onibus, módulo a cada idOnibus
 primeiroHorarioValido = 0
-
 for idOnibus, indice in dicionarioRequisitos.items():
 	Ma = int(multiplicacaoDeTodosOsModulos/idOnibus)
 	inverso = inversoModularDoNumero(Ma,idOnibus)
