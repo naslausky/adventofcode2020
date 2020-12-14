@@ -45,7 +45,9 @@ for instrucao in linhas:
 		for indice, bitPosicao in enumerate(listaDosBitsAposMascara):
 			if bitPosicao == 'X': #!Cada posição de lista vira duas, appendando 1 e 0.
 				#Compreensão que gera uma nova lista onde cada elemento aparece duas vezes.
-				listaPosicoesNaMemoria = [item for sublist in [[posicaoPossivel+['0'],posicaoPossivel+['1']] for posicaoPossivel in listaPosicoesNaMemoria] for item in sublist]
+				listaPosicoesNaMemoria = [item for sublist in 
+							[[posicaoPossivel+['0'],posicaoPossivel+['1']] for posicaoPossivel in listaPosicoesNaMemoria] 
+							for item in sublist]
 			else:
 				for posicaoPossivel in listaPosicoesNaMemoria: #Não bifurca
 					posicaoPossivel.append(listaDosBitsAposMascara[indice])
