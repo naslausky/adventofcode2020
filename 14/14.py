@@ -42,9 +42,8 @@ for instrucao in linhas:
 				listaDosBitsAposMascara.append(bitMascara)
 			else:
 				listaDosBitsAposMascara.append(posicaoEmBinario[indice])
-		stringBitsAposMascara = ''.join(listaDosBitsAposMascara) #!Desncessário talvez.
 		listaPosicoesNaMemoria = [[]] #Lista de listas onde cada item representa uma posição de memória para salvar o valor.
-		for indice, bitPosicao in enumerate(stringBitsAposMascara):
+		for indice, bitPosicao in enumerate(listaDosBitsAposMascara):
 			if bitPosicao == 'X': #!Cada posição de lista vira duas, appendando 1 e 0. Deve dar pra fazer com compreensão.
 				copiaLista = listaPosicoesNaMemoria[:]
 				for posicaoPossivel in listaPosicoesNaMemoria:
@@ -56,7 +55,7 @@ for instrucao in linhas:
 				listaPosicoesNaMemoria = copiaLista
 			else:
 				for posicaoPossivel in listaPosicoesNaMemoria: #Não bifurca
-					posicaoPossivel.append(stringBitsAposMascara[indice])
+					posicaoPossivel.append(listaDosBitsAposMascara[indice])
 		for posicaoASeSalvarOValor in listaPosicoesNaMemoria:
 			stringBinariaPosicao = ''.join(posicaoASeSalvarOValor)
 			posicao = int(stringBinariaPosicao,2)
