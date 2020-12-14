@@ -4,7 +4,6 @@
 
 with open('input.txt') as file:
 	linhas = file.read().splitlines()
-
 mascaraAtual = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' #Máscara neutra caso a primeira linha não seja uma.
 dicionarioPosicoesMemoria = {} #Dicionário que relaciona as posições de memória com seu conteúdo.
 for instrucao in linhas:
@@ -44,15 +43,9 @@ for instrucao in linhas:
 				listaDosBitsAposMascara.append(posicaoEmBinario[indice])
 		listaPosicoesNaMemoria = [[]] #Lista de listas onde cada item representa uma posição de memória para salvar o valor.
 		for indice, bitPosicao in enumerate(listaDosBitsAposMascara):
-			if bitPosicao == 'X': #!Cada posição de lista vira duas, appendando 1 e 0. Deve dar pra fazer com compreensão.
-				copiaLista = listaPosicoesNaMemoria[:]
-				for posicaoPossivel in listaPosicoesNaMemoria:
-					posicaoPossivelCom0 = posicaoPossivel+['0']
-					posicaoPossivelCom1 = posicaoPossivel+['1']
-					copiaLista.remove(posicaoPossivel)
-					copiaLista.append(posicaoPossivelCom0)
-					copiaLista.append(posicaoPossivelCom1)
-				listaPosicoesNaMemoria = copiaLista
+			if bitPosicao == 'X': #!Cada posição de lista vira duas, appendando 1 e 0.
+				#Compreensão que gera uma nova lista onde cada elemento aparece duas vezes.
+				listaPosicoesNaMemoria = [item for sublist in [[posicaoPossivel+['0'],posicaoPossivel+['1']] for posicaoPossivel in listaPosicoesNaMemoria] for item in sublist]
 			else:
 				for posicaoPossivel in listaPosicoesNaMemoria: #Não bifurca
 					posicaoPossivel.append(listaDosBitsAposMascara[indice])
