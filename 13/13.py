@@ -41,3 +41,19 @@ for idOnibus, indice in dicionarioRequisitos.items():
 	inverso = inversoModularDoNumero(Ma,idOnibus)
 	primeiroHorarioValido += inverso * Ma * indice
 print("O primeiro horário válido que satisfaz a equação é:", primeiroHorarioValido%multiplicacaoDeTodosOsModulos)
+
+#Parte 2 - Sem usar teorema chinês dos restos propriamente dito:
+#primeiroHorarioValido = 0
+#numeroAIncrementar = 1
+#for idOnibus in sorted(listaOnibusEmServico,reverse=True):#.sort(reverse=True):
+#	indice = dicionarioRequisitos[idOnibus]
+#	if (primeiroHorarioValido%idOnibus == indice%idOnibus):
+#			numeroAIncrementar *=idOnibus
+#			achou=True
+#	achou = False
+#	while not achou:
+#		primeiroHorarioValido +=numeroAIncrementar
+#		if (primeiroHorarioValido%idOnibus == indice%idOnibus):
+#			numeroAIncrementar *=idOnibus
+#			achou=True
+#print("O primeiro horário válido que satisfaz a equação é:",primeiroHorarioValido)
