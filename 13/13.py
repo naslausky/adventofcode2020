@@ -43,17 +43,17 @@ for idOnibus, indice in dicionarioRequisitos.items():
 print("O primeiro horário válido que satisfaz a equação é:", primeiroHorarioValido%multiplicacaoDeTodosOsModulos)
 
 #Parte 2 - Sem usar teorema chinês dos restos propriamente dito:
-#primeiroHorarioValido = 0
-#numeroAIncrementar = 1
-#for idOnibus in sorted(listaOnibusEmServico,reverse=True):#.sort(reverse=True):
-#	indice = dicionarioRequisitos[idOnibus]
-#	if (primeiroHorarioValido%idOnibus == indice%idOnibus):
-#			numeroAIncrementar *=idOnibus
-#			achou=True
-#	achou = False
-#	while not achou:
-#		primeiroHorarioValido +=numeroAIncrementar
-#		if (primeiroHorarioValido%idOnibus == indice%idOnibus):
-#			numeroAIncrementar *=idOnibus
-#			achou=True
-#print("O primeiro horário válido que satisfaz a equação é:",primeiroHorarioValido)
+primeiroHorarioValido = 0
+numeroAIncrementar = 1
+for idOnibus in sorted(listaOnibusEmServico,reverse=True):#.sort(reverse=True):
+	indice = dicionarioRequisitos[idOnibus]
+#	if (primeiroHorarioValido%idOnibus == indice%idOnibus): #Caso em que em uma mesma incrementada acha dois casos
+#			numeroAIncrementar *=idOnibus #Porém nos inputs que testei, nunca caiu nesse caso.
+#			continue
+	achou = False
+	while not achou:
+		primeiroHorarioValido +=numeroAIncrementar
+		if (primeiroHorarioValido%idOnibus == indice%idOnibus):
+			numeroAIncrementar *=idOnibus
+			achou=True
+print("O primeiro horário válido que satisfaz a equação é:", primeiroHorarioValido)
