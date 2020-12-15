@@ -6,24 +6,29 @@ with open('input.txt') as file:
 	linhas = file.read().splitlines()
 	numeros = linhas[0].split(',')
 	numeros = list(map(int,numeros))
-	inputOriginal = numeros[:] #Para poder recomeçar na parte 2
 
-dicionarioDasUltimasVezesQueApareceu = {} #Dicionário que relaciona o número com o índice da última vez que ele apareceu.
-for indice, numero in enumerate(numeros): #inicializa o dicionário com os números iniciais.
-	dicionarioDasUltimasVezesQueApareceu[numero] = indice+1
-numeroDitoMaisRecente = numeros[-1]
+def calcularEnesimoElementoDaSequencia(n, numerosIniciais):
+	dicionarioDasUltimasVezesQueApareceu = {} #Dicionário que relaciona o número com o índice da última vez que ele apareceu.
+	for indice, numero in enumerate(numerosIniciais): #inicializa o dicionário com os números iniciais.
+		dicionarioDasUltimasVezesQueApareceu[numero] = indice+1
+	numeroDitoMaisRecente = numerosIniciais[-1]
 
-for indiceNumero in range(len(numeros),30000000):
-	if numeroDitoMaisRecente not in dicionarioDasUltimasVezesQueApareceu: #Primeira vez que o número é dito.
-		dicionarioDasUltimasVezesQueApareceu[numeroDitoMaisRecente] = indiceNumero
-		numeroDitoMaisRecente = 0
-	else:
-		indiceDaPenultimaVezQueApareceu = dicionarioDasUltimasVezesQueApareceu[numeroDitoMaisRecente]
-		numeroASeAdicionar = indiceNumero - indiceDaPenultimaVezQueApareceu
-		dicionarioDasUltimasVezesQueApareceu[numeroDitoMaisRecente] = indiceNumero
-		numeroDitoMaisRecente = numeroASeAdicionar
+	for indiceNumero in range(len(numeros),n):
+		if numeroDitoMaisRecente not in dicionarioDasUltimasVezesQueApareceu: #Primeira vez que o número é dito.
+			dicionarioDasUltimasVezesQueApareceu[numeroDitoMaisRecente] = indiceNumero
+			numeroDitoMaisRecente = 0
+		else: #Número ja foi dito antes e salvo no dicionário o índice da última vez que apareceu.
+			indiceDaPenultimaVezQueApareceu = dicionarioDasUltimasVezesQueApareceu[numeroDitoMaisRecente]
+			numeroASeAdicionar = indiceNumero - indiceDaPenultimaVezQueApareceu
+			dicionarioDasUltimasVezesQueApareceu[numeroDitoMaisRecente] = indiceNumero
+			numeroDitoMaisRecente = numeroASeAdicionar
+	return numeroDitoMaisRecente
 
-print("O 30000000 número da sequência é:",numeroDitoMaisRecente)
+print("O 2020º número da sequência é:", calcularEnesimoElementoDaSequencia(2020, numeros))
+#Parte 2:
+print("O 30000000º número da sequência é:", calcularEnesimoElementoDaSequencia(30000000, numeros))
+
+#Tentativa inicial. Funciona porém muito dispendioso para números elevados.
 #for indiceNumero in range(len(numeros), 2020):
 #	numeroDitoMaisRecente = numeros[indiceNumero-1]
 #	if numeros.count(numeroDitoMaisRecente) == 1: #Primeira vez que o número foi dito
