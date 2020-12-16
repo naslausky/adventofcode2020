@@ -42,8 +42,7 @@ numeroDeCampos = len(dicRegras)
 dicionarioGabaritoCampos = {} #Dicionário que relaciona uma regra com o índice dela no campo.
 while (len(dicionarioGabaritoCampos) != len(dicRegras)):
 	for campo, intervalos in dicRegras.items():
-		numeroDeIndicesPlausiveis = 0
-		unicoIndicePlausivel = -1 #Mudar para uma listaDeIndicesPlausiveis
+		indicesPlausiveis = []
 		for indice in range(numeroDeCampos):
 			if indice in dicionarioGabaritoCampos.values():
 				continue
@@ -56,10 +55,9 @@ while (len(dicionarioGabaritoCampos) != len(dicRegras)):
 				if not campoPossivelmenteValido:
 					indiceEhPlausivel = False
 			if indiceEhPlausivel:
-				numeroDeIndicesPlausiveis +=1
-				unicoIndicePlausivel = indice
-		if numeroDeIndicesPlausiveis == 1:
-			dicionarioGabaritoCampos[campo] = unicoIndicePlausivel
+				indicesPlausiveis.append(indice)
+		if len(indicesPlausiveis) == 1:
+			dicionarioGabaritoCampos[campo] = indicesPlausiveis[0]
 
 multiplicacaoDosCamposComDeparture = 1
 for campo, indice in dicionarioGabaritoCampos.items():
