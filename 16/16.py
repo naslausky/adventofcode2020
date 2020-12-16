@@ -36,31 +36,31 @@ for ticket in ticketsProximos:
 			somaCamposInvalidos += campo
 			ticketsInvalidos.add(tuple(ticket))
 print("Taxa de erro no escaneamento de tickets:", somaCamposInvalidos)
+
 #Parte 2:
 ticketsValidos = [ticket for ticket in ticketsProximos if (tuple(ticket) not in ticketsInvalidos)]
 numeroDeCampos = len(dicRegras)
 dicionarioGabaritoCampos = {} #Dicionário que relaciona uma regra com o índice dela no campo.
-while (len(dicionarioGabaritoCampos) != len(dicRegras)):
+while dicRegras:
 	for campo, intervalos in dicRegras.items():
 		indicesPlausiveis = []
 		for indice in range(numeroDeCampos):
-			if indice in dicionarioGabaritoCampos.values():
-				continue
-			indiceEhPlausivel = True #Armazena a informação para o índice específico.
-			for ticket in ticketsValidos:
-				campoPossivelmenteValido = False #Armazena a informação para este indice neste ticket.
-				for intervalo in intervalos:
-					if ticket[indice] in range(intervalo[0],intervalo[1]+1):
-						campoPossivelmenteValido = True
-				if not campoPossivelmenteValido:
-					indiceEhPlausivel = False
-			if indiceEhPlausivel:
-				indicesPlausiveis.append(indice)
+			if (indice not in dicionarioGabaritoCampos.values()): #Se já descobriu o gabarito deste indice nem tenta.
+				indiceEhPlausivel = True #Armazena a informação para o índice específico.
+				for ticket in ticketsValidos:
+					campoPossivelmenteValido = False #Armazena a informação para este indice neste ticket.
+					for intervalo in intervalos:
+						if ticket[indice] in range(intervalo[0],intervalo[1]+1):
+							campoPossivelmenteValido = True
+					if not campoPossivelmenteValido:
+						indiceEhPlausivel = False
+				if indiceEhPlausivel:
+					indicesPlausiveis.append(indice)
 		if len(indicesPlausiveis) == 1:
 			dicionarioGabaritoCampos[campo] = indicesPlausiveis[0]
-
+	dicRegras = {campo:intervalos for campo,intervalos in dicRegras.items() if campo not in dicionarioGabaritoCampos} #Remove do dicionário os campos que já foram descobertos o "gabarito".
 multiplicacaoDosCamposComDeparture = 1
 for campo, indice in dicionarioGabaritoCampos.items():
 	if 'departure' in campo:
 		multiplicacaoDosCamposComDeparture *= seuTicket[indice]
-print('Multiplicação dos valores do seu ticket referentes aos campos com Departure:', multiplicacaoDosCamposComDeparture)
+print('Multiplicação dos valores do seu ticket referentes aos campos com "departure":', multiplicacaoDosCamposComDeparture)
