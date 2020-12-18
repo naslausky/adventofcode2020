@@ -57,17 +57,38 @@ def avaliarExpressaoComPrecedenciaInvertida(expressao):
 		if indice<=indiceParaIgnorar:
 			continue
 		if caracter in operadoresPossiveis:
-			stringNumerodaVez = ''.join(numeroAteAgora).strip()
+			stringNumeroDaVez = ''.join(numeroAteAgora).strip()
 			if stringNumeroDaVez:
 				listaDaExpressao.append(stringNumeroDaVez)
 			listaDaExpressao.append(caracter)
 			numeroAteAgora = []
 		elif caracter == '(':
 			numeroParentesesAbertos = 0
-
+			for indiceSegundoCaracter, segundoCaracter in enumerate(expressao[indice:len(expressao)]):
+				if segundoCaracter == ')':
+					numeroParentesesAbertos -=1
+				elif segundoCaracter == '(':
+					numeroParentesesAbertos +=1
+				if numeroParentesesAbertos == 0:
+					indiceParaIgnorar = indiceSegundoCaracter+indice
+					subExpressao = expressao[indice+1:indiceParaIgnorar]
+					listaDaExpressao.append(avaliarExpressaoComPrecedenciaInvertida(subExpressao))
+					break
+		else:
+			numeroAteAgora.append(caracter)
+	stringNumeroDaVez = ''.join(numeroAteAgora).strip()
+	if stringNumeroDaVez: #Acho que não precisa dessa verificação
+		listaDaExpressao.append(stringNumeroDaVez)
+	expressaoFinal = ''.join(listaDaExpressao)
+	expressaoFinal = expressaoFinal.split('*')
+	resultadoMultiplicacao = 1
+	for fator in expressaoFinal:
+		resultadoMultiplicacao *= avaliarExpressao(fator) #Só existirão fatores simples do tipo (a+b).
+	return str(resultadoMultiplicacao)
 
 with open('input.txt') as file:
 	expressoes = file.read().splitlines()
 	somaDeTodasAsExpressoes = sum([avaliarExpressao(expressao) for expressao in expressoes])
 	print("A soma do resultado de todas as expressões desconsiderando precedência é:", somaDeTodasAsExpressoes)
-	
+	somaDeTodasAsExpressoesComPrecedenciaInvertida = sum([int(avaliarExpressaoComPrecedenciaInvertida(expressao)) for expressao in expressoes])
+	print("A soma do resultado de todas as expressões com a precedência invertida é:", somaDeTodasAsExpressoesComPrecedenciaInvertida)
