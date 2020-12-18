@@ -48,10 +48,10 @@ def avaliarExpressao(expressao):
 		else:
 			resultado *= numeroDaVez
 	return resultado
-def avaliarExpressaoComPrecedenciaInvertida(expressao):
-	indiceParaIgnorar = -1
-	operadoresPossiveis = '+*'
-	numeroAteAgora = []
+def avaliarExpressaoComPrecedenciaInvertida(expressao):	# Função que separa a expressão em elementos (fatores ou operadores). Calcula as somas primeiro.
+	indiceParaIgnorar = -1 				#A ideia inicial era adicionar vários parênteses e re-utilizar a primeira função, mas desisti.
+	operadoresPossiveis = '+*'			#Acabou que ficou uma função bem parecida com a primeira, porém levando em consideração a ordem.
+	numeroAteAgora = []				#Isto é, poderia ser reaproveitado o processamento em comum.
 	listaDaExpressao = [] #Lista da seguinte forma ['123','+','456,'*',...]
 	for indice, caracter in enumerate(expressao):
 		if indice<=indiceParaIgnorar:
@@ -77,8 +77,7 @@ def avaliarExpressaoComPrecedenciaInvertida(expressao):
 		else:
 			numeroAteAgora.append(caracter)
 	stringNumeroDaVez = ''.join(numeroAteAgora).strip()
-	if stringNumeroDaVez: #Acho que não precisa dessa verificação
-		listaDaExpressao.append(stringNumeroDaVez)
+	listaDaExpressao.append(stringNumeroDaVez)
 	expressaoFinal = ''.join(listaDaExpressao)
 	expressaoFinal = expressaoFinal.split('*')
 	resultadoMultiplicacao = 1
