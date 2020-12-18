@@ -25,15 +25,14 @@ def avaliarExpressao(expressao):
 			ultimoOperadorEncontrado = caracter
 		elif caracter == '(':
 			numeroParentesesAbertos = 0
-			for indiceSegundoCaracter in range(indice, len(expressao)): #Encontrar o parênteses que fecha este.
-				segundoCaracter = expressao[indiceSegundoCaracter]
+			for indiceSegundoCaracter,segundoCaracter in enumerate(expressao[indice: len(expressao)]): #Encontrar o parênteses que fecha este.
 				if segundoCaracter == ')':
 					numeroParentesesAbertos -= 1
 				elif segundoCaracter == '(':
 					numeroParentesesAbertos += 1
 				if numeroParentesesAbertos == 0:
-					indiceParaIgnorar = indiceSegundoCaracter
-					subExpressao = expressao[indice+1:indiceSegundoCaracter]
+					indiceParaIgnorar = indiceSegundoCaracter+indice
+					subExpressao = expressao[indice+1:indiceParaIgnorar]
 					if ultimoOperadorEncontrado == '+':
 						resultado += avaliarExpressao(subExpressao) 
 					else:
