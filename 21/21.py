@@ -28,22 +28,17 @@ for linha in linhas: #Contar quantos ingredientes não contém nenhum alérgeno.
 			numeroIngredientesSemAlergenos += 1
 print("O número de ingredientes que com certeza não contém alérgenos é:", numeroIngredientesSemAlergenos)
 #Parte 2:
-gabaritoIngredientes = {}#Dicionário que relaciona cada ingrediente a seu alérgeno.
+gabaritoIngredientes = {}#Dicionário que relaciona cada alérgeno a seu ingrediente.
 while (len(gabaritoIngredientes)!=len(dicionarioPossibilidadeAlergenos)):
 	for alergeno,ingredientes in dicionarioPossibilidadeAlergenos.items():
 		if len(ingredientes) == 1:
 			ingrediente = next(iter(ingredientes))
-			gabaritoIngredientes[ingrediente] = alergeno
-	setGabarito = set(gabaritoIngredientes.keys())
+			gabaritoIngredientes[alergeno] = ingrediente
+	setGabarito = set(gabaritoIngredientes.values())
 	for alergeno in dicionarioPossibilidadeAlergenos:
 		ingredientes = dicionarioPossibilidadeAlergenos[alergeno]
 		dicionarioPossibilidadeAlergenos[alergeno] = ingredientes - setGabarito #Remove os ingredientes já descobertos.
-listaAlergenos = list(gabaritoIngredientes.values())
-listaAlergenos.sort() #Ordena alfabeticamente
-listaIngredientes = []
-for alergenoOrdenado in listaAlergenos:
-	for ingrediente,alergeno in gabaritoIngredientes.items():
-		if alergenoOrdenado == alergeno:
-			listaIngredientes.append(ingrediente)
+listaAlergenosOrdenada = list(gabaritoIngredientes.keys())
+listaAlergenosOrdenada.sort()
+listaIngredientes = [gabaritoIngredientes[alergeno] for alergeno in listaAlergenosOrdenada]
 print("Lista de ingredientes perigosos:", ','.join(listaIngredientes))
-
