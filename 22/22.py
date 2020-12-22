@@ -24,7 +24,7 @@ print("Pontuação do baralho do vencedor:", pontuacaoDoBaralho(baralhoJogador1+
 
 #Parte2:
 def jogarCombateRecursivo(cartas1,cartas2): #Função que executa uma partida do jogo recursivo.
-	arranjoDosRoundsAnteriores = [] #Lista de tuplas que representa as disposições de cartas já ocorridas.
+	arranjoDosRoundsAnteriores = set() #Lista de tuplas que representa as disposições de cartas já ocorridas.
 	while (True):
 		arranjoDeCartasDesseTurno = (tuple(cartas1), tuple(cartas2)) #Adicionar na lista ao final do round.
 		if arranjoDeCartasDesseTurno in arranjoDosRoundsAnteriores:
@@ -42,7 +42,7 @@ def jogarCombateRecursivo(cartas1,cartas2): #Função que executa uma partida do
 				cartas1.extend([cartaJogador1,cartaJogador2])
 			else:
 				cartas2.extend([cartaJogador2,cartaJogador1])
-		arranjoDosRoundsAnteriores.append(arranjoDeCartasDesseTurno)
+		arranjoDosRoundsAnteriores.add(arranjoDeCartasDesseTurno)
 		if not cartas1: #Jogador 2 venceu
 			return 2, cartas2 #Precisa retornar as cartas para contagem dos pontos ao final.
 		if not cartas2: #Jogador 1 venceu
