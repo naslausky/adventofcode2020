@@ -32,7 +32,7 @@ class Copo:
 		self.proximo = None
 copos = coposParte2
 dicionarioCopos = {numero:Copo(numero) for numero in copos} #Dicionário da forma: {2:Copo2,...}
-for indice, numeroCopo in enumerate(copos):#Provavelmente dá pra fazer isso numa varrida só.
+for indice, numeroCopo in enumerate(copos):#Provavelmente daria pra fazer essas linhas em uma varrida só.
 	dicionarioCopos[numeroCopo].proximo = dicionarioCopos[copos[(indice+1)%len(copos)]]
 copoAtual = dicionarioCopos[copos[0]] #Começa com o primeiro da lista
 for movimento in range(10000000):
@@ -40,13 +40,9 @@ for movimento in range(10000000):
 	ultimoCopoRemovido = primeiroCopoRemovido.proximo.proximo #Remove 3 copos.
 	copoAtual.proximo = ultimoCopoRemovido.proximo #Fecha o buraco que ficou.
 	numerosDosCoposRemovidos = (primeiroCopoRemovido.numero,primeiroCopoRemovido.proximo.numero, ultimoCopoRemovido.numero)
-	numeroCopoDestino = copoAtual.numero -1
-	if numeroCopoDestino == 0:
-		numeroCopoDestino = 1000000
+	numeroCopoDestino = (copoAtual.numero - 1) if copoAtual.numero > 1 else 1000000
 	while (numeroCopoDestino in numerosDosCoposRemovidos):
-		numeroCopoDestino -=1
-		if numeroCopoDestino == 0:
-			numeroCopoDestino = 1000000
+		numeroCopoDestino = (numeroCopoDestino - 1) if numeroCopoDestino > 1 else 1000000
 	copoDestino = dicionarioCopos[numeroCopoDestino]
 	copoAposODestino = copoDestino.proximo #Os copos removidos devem ser inseridos entre esses dois.
 	copoDestino.proximo = primeiroCopoRemovido
