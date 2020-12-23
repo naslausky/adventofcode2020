@@ -3,9 +3,7 @@
 #b)Idem, porém com uma lista com 1 milhão de elementos e as instruções 10 milhões de vezes.
 with open('input.txt') as file:
 	linha = file.read().splitlines()[0]
-	copos = []
-	for numero in linha:
-		copos.append(int(numero))
+	copos = [int(numero) for numero in linha]
 	coposParte2 = list(range(1,1000001)) #Copos da parte 2. Igual ao da parte 1 porém completo até 1 milhão.
 	for indice,numeroCopo in enumerate(copos):
 		coposParte2[indice] = numeroCopo
@@ -26,7 +24,7 @@ for movimento in range(100):
 	indiceCopoAtual = indiceCopoAtual % len(copos)
 indiceCopoDeNumero1 = copos.index(1)
 coposOrdenados = copos[indiceCopoDeNumero1+1:] + copos[:indiceCopoDeNumero1]
-print("Os copos após o de número 1 são:", ''.join(str(copo) for copo in coposOrdenados))
+print('Os copos após o de número 1 são:', ''.join(str(copo) for copo in coposOrdenados))
 #Parte 2
 class Copo:
 	def __init__ (self, numeroCopo):
@@ -56,4 +54,4 @@ for movimento in range(10000000):
 	copoAtual = copoAtual.proximo
 copo1 = dicionarioCopos[1].proximo
 copo2 = copo1.proximo
-print("A multiplicação dos dois copos após o de número 1 é:", (copo1.numero * copo2.numero))
+print('A multiplicação dos dois copos após o de número 1 é:', (copo1.numero * copo2.numero))
