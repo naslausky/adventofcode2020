@@ -51,7 +51,7 @@ with open('input.txt') as file:
 			dicionarioTiles[coordenada] = not dicionarioTiles[coordenada] #Vira o tile
 		else: #Caso não esteja significa que está com a face branca para cima
 			dicionarioTiles[coordenada] = True
-def numeroTotalDeFacesPretas():
+def numeroTotalDeFacesPretas(): #Função que retorna o número total de tiles com a face preta para cima.
 	return sum([valor for valor in dicionarioTiles.values()])
 print("O número total de tiles com a face preta virada para cima é:", numeroTotalDeFacesPretas())
 #Parte 2:
@@ -69,7 +69,7 @@ def coordenadasDosTilesAoRedor(coordenadaX,coordenadaY): #Função que retorna u
 	else:
 		coordenadasASeVerificar = ((0,-2),(-1,-1),(-1,1),(0,2),(0,1),(0,-1))
 	return ((coordenadaX+coordenada[0],coordenadaY+coordenada[1]) for coordenada in coordenadasASeVerificar)
-def numeroDeTilesPretosEmTornoDoTile(coordenadaX,coordenadaY):
+def numeroDeTilesPretosEmTornoDoTile(coordenadaX,coordenadaY):#Função que conta quantos tiles pretos tem em volta.
 	return sum([dicionarioTiles.get(coordenada,False) 
 					for coordenada in coordenadasDosTilesAoRedor(coordenadaX,coordenadaY)])
 for dia in range(100): #Realizar o procedimento por 100 dias.
