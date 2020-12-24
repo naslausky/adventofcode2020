@@ -59,10 +59,9 @@ def expandirTilesEmTornoDosTilesPretos():#Função que adiciona ao dicionário a
 	tilesASeAdicionar = {}
 	for coordenada, tile in dicionarioTiles.items():
 		if tile: #Apenas em torno dos tiles com a face preta para cima
-			for coordenadaX in range(coordenada[0]-2, coordenada[0]+3): #Provavelmente exagerei
-				for coordenadaY in range(coordenada[1]-2,coordenada[1]+3):
-					if (coordenadaX,coordenadaY) not in dicionarioTiles:
-						tilesASeAdicionar[(coordenadaX,coordenadaY)] = False
+			for coordenadaAAdicionar in coordenadasDosTilesAoRedor(*coordenada):
+				if coordenadaAAdicionar not in dicionarioTiles:
+						tilesASeAdicionar[coordenadaAAdicionar] = False
 	dicionarioTiles.update(tilesASeAdicionar)
 def coordenadasDosTilesAoRedor(coordenadaX,coordenadaY): #Função que retorna uma tupla de coordenadas ao redor.
 	if coordenadaY%2:
@@ -74,7 +73,7 @@ def numeroDeTilesPretosEmTornoDoTile(coordenadaX,coordenadaY):
 	return sum([dicionarioTiles.get(coordenada,False) 
 					for coordenada in coordenadasDosTilesAoRedor(coordenadaX,coordenadaY)])
 for dia in range(100): #Realizar o procedimento por 100 dias.
-	tilesAMudar = {}#Dicionário com as alterações do dia.
+	tilesAMudar = {} #Dicionário com as alterações do dia.
 	expandirTilesEmTornoDosTilesPretos()
 	for coordenada, tile in dicionarioTiles.items():
 		numeroDeTilesPretoEmVolta = numeroDeTilesPretosEmTornoDoTile(*coordenada)
