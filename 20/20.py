@@ -70,7 +70,7 @@ for indiceTile,arestas in arestasDosTiles.items():
 				continue
 			if aresta in arestas2:
 				numeroDeArestasCombinantes +=1
-				ultimaLinha=aresta
+				ultimaAresta=aresta
 				arestasCombinantesDoTile.append(aresta)
 	if numeroDeArestasCombinantes == 4:
 		multiplicacao*=indiceTile
@@ -80,10 +80,12 @@ print(multiplicacao)
 
 #Parte 2:
 dicionarioTiles = {tile.indice:tile for tile in tiles}
-
 tilesJaUsados = []
-#O primeiro precisa ser rodado até saber a orientação correta.
-dicionarioTiles[primeiroTile].rotacionarAteEncaixar(ultimaLinha)
+
+#O primeiro precisa ser rodado até saber a orientação correta. Por agora está bugado
+#dicionarioTiles[primeiroTile].rotacionarAteEncaixar(ultimaAresta)
+#dicionarioTiles[primeiroTile].espelhar()
+
 dicionarioTiles[primeiroTile].rotacionar()
 
 for tile in tiles:
@@ -94,6 +96,8 @@ print(tilesJaUsados)
 for linha in range (numeroDeTiles):
 	for coluna in range((1 if linha==0 else 0), numeroDeTiles):
 		arestaAEncaixar = dicionarioTiles[tilesJaUsados[-12]].linhaInferior() if coluna==0 else dicionarioTiles[tilesJaUsados[-1]].linhaDireita()
+		if (linha==0 and coluna==1):
+			print(arestaAEncaixar)
 		for tile in tiles:
 			if tile.indice not in tilesJaUsados:
 				if arestaAEncaixar in tile.obterTodasAsLaterais(): #Tile correto.
