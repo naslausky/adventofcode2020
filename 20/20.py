@@ -45,6 +45,7 @@ class Tile:#Classe que representa uma peça do mapa
 			self.rotacionar()
 			if metodoDaArestaACombinar() == aresta: #Encaixou
 				return
+	
 tiles = []
 numeroTileAtual = 0
 tileAtual = []
@@ -82,26 +83,21 @@ print(multiplicacao)
 dicionarioTiles = {tile.indice:tile for tile in tiles}
 tilesJaUsados = []
 
-#O primeiro precisa ser rodado até saber a orientação correta. Por agora está bugado
-#dicionarioTiles[primeiroTile].rotacionarAteEncaixar(ultimaAresta)
-#dicionarioTiles[primeiroTile].espelhar()
-
+#O primeiro precisa ser rodado até saber a orientação correta. Por agora está bugado a detecção automática e eu inseri o "gabarito" manualmente.
 dicionarioTiles[primeiroTile].rotacionar()
-
+#############
 for tile in tiles:
 	if tile.indice == primeiroTile:
 		tilesJaUsados.append(tile.indice)
 numeroDeTiles = int(len(tiles)**(1/2)) #O enunciado diz que é uma imagem quadrada
-print(tilesJaUsados)
 for linha in range (numeroDeTiles):
 	for coluna in range((1 if linha==0 else 0), numeroDeTiles):
 		arestaAEncaixar = dicionarioTiles[tilesJaUsados[-12]].linhaInferior() if coluna==0 else dicionarioTiles[tilesJaUsados[-1]].linhaDireita()
-		if (linha==0 and coluna==1):
-			print(arestaAEncaixar)
 		for tile in tiles:
 			if tile.indice not in tilesJaUsados:
 				if arestaAEncaixar in tile.obterTodasAsLaterais(): #Tile correto.
 					tilesJaUsados.append(tile.indice)
 					tile.rotacionarAteEncaixar(arestaAEncaixar, (coluna==0))
 
-print(tilesJaUsados)
+#print(tilesJaUsados)
+
