@@ -107,8 +107,10 @@ for indiceImagem in range (numeroDeTiles):
 	linhasASeremAdicionadas = [''.join([dicionarioTiles[i].caracteres[indiceLinha]  for i in tilesJaUsados[indiceImagem*12:((indiceImagem+1)*12)-1]]) for indiceLinha in range(8)]
 	imagemFinal.extend(linhasASeremAdicionadas)
 
-for i in imagemFinal:
-	print(i)
+#for i in imagemFinal:
+#	print(i)
 
-
+padraoMonstroMarinho = ['                  # ',
+                        '#    ##    ##    ###',
+                        ' #  #  #  #  #  #   ']
 	
