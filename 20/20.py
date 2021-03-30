@@ -45,7 +45,8 @@ class Tile:#Classe que representa uma peça do mapa
 			self.rotacionar()
 			if metodoDaArestaACombinar() == aresta: #Encaixou
 				return
-	
+	def removerBordas(self):
+		self.caracteres = [string[1:-1] for string in self.caracteres[1:-1]]
 tiles = []
 numeroTileAtual = 0
 tileAtual = []
@@ -98,6 +99,16 @@ for linha in range (numeroDeTiles):
 				if arestaAEncaixar in tile.obterTodasAsLaterais(): #Tile correto.
 					tilesJaUsados.append(tile.indice)
 					tile.rotacionarAteEncaixar(arestaAEncaixar, (coluna==0))
+#Forma uma imagem final sem as bordas de cada tile:
+[t.removerBordas() for t in tiles]
+primeiraLinha = ''.join([dicionarioTiles[i].caracteres[0] for i in tilesJaUsados[0:11]])
+imagemFinal = []
+for indiceImagem in range (numeroDeTiles):
+	linhasASeremAdicionadas = [''.join([dicionarioTiles[i].caracteres[indiceLinha]  for i in tilesJaUsados[indiceImagem*12:((indiceImagem+1)*12)-1]]) for indiceLinha in range(8)]
+	imagemFinal.extend(linhasASeremAdicionadas)
 
-#print(tilesJaUsados)
+for i in imagemFinal:
+	print(i)
 
+
+	
