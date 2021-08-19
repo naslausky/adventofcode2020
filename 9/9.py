@@ -6,7 +6,6 @@
 with open("input.txt") as file:
 	linhas = file.read().splitlines()
 	linhas = list(map(int,linhas))
-
 for indice in range(25,len(linhas)):
 	numerosAnteriores = linhas[indice-25:indice]
 	#Se nos últimos 25 números houver o mesmo item duas vezes, a possibilidade da soma deles não será cogitada.

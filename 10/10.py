@@ -17,7 +17,6 @@ diferencasDeVoltagens = []
 for voltagem in voltagens:
 	diferencasDeVoltagens.append(voltagem - voltagemAnterior)
 	voltagemAnterior = voltagem
-
 numeroDeDiferencasDe1Volt = diferencasDeVoltagens.count(1)
 numeroDeDiferencasDe3Volts = diferencasDeVoltagens.count(3) + 1 #Precisa contar o último dispositivo conectado aos adaptadores.
 

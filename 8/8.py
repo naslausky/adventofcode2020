@@ -44,4 +44,3 @@ for indiceDaInstrucaoASerAlterada in range(0,len(instrucoes)):
 		break
 	#Troca de volta e segue o baile:
 	instrucoes[indiceDaInstrucaoASerAlterada] = trocaInstrucao(instrucoes[indiceDaInstrucaoASerAlterada])
-	

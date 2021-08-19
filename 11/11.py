@@ -79,7 +79,6 @@ def inverterEstadoDoLugar(indiceLinha, indiceColuna, linhasAposModificacao):
 	linhasAposModificacao[indiceLinha] = "".join(listaDaLinhaAtual)
 	return linhasAposModificacao
 
-
 modificou=True
 while(modificou):
 	modificou, linhas = executarRegras(linhas)

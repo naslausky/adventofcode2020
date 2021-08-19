@@ -36,15 +36,11 @@ for passaporte in passaportes:
 			contemTodosOsCampos = False
 	if contemTodosOsCampos:
 		passaportesComTodosOsCampos.append(passaporte)
-
-print("Quantidade de passaportes válidos: " + str(len(passaportesComTodosOsCampos)))
-
+print("Quantidade de passaportes válidos: ", len(passaportesComTodosOsCampos))
 
 #Segunda parte:
-
 coresDeOlhoPossiveis = ["amb","blu","brn","gry","grn","hzl","oth"]
 passaportesValidos = []
-
 for passaporte in passaportesComTodosOsCampos:
 	todosOsCamposValidos = True
 	for chave, valor in passaporte.items():
@@ -86,4 +82,4 @@ for passaporte in passaportesComTodosOsCampos:
 	if todosOsCamposValidos:
 		passaportesValidos.append(passaporte)
 
-print("Número de passaportes válidos: " + str(len(passaportesValidos)))
+print("Número de passaportes válidos: ", len(passaportesValidos))

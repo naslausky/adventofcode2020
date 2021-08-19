@@ -4,15 +4,13 @@
 
 conjuntoDePerguntasAtual = set()
 listaDeGrupos = []
-
-#Parte 2
+#Parte 2:
 conjuntoDePerguntasIntersecao = None
 listaDeGruposIntersecao = []
 
 with open ("input.txt") as file:
 	for linha in file:
-		if linha == "\n":
-			#Chegou ao final de um grupo de passageiros
+		if linha == "\n": #Chegou ao final de um grupo de passageiros
 			listaDeGrupos.append(conjuntoDePerguntasAtual)
 			conjuntoDePerguntasAtual = set()
 
@@ -37,5 +35,5 @@ listaDeGruposIntersecao.append(conjuntoDePerguntasIntersecao)
 numeroDeQuestoesRespondidas = sum([len(grupo) for grupo in listaDeGrupos])
 numeroDeQuestoesRespondidasPorTodosNoGrupo = sum ([len(grupo) for grupo in listaDeGruposIntersecao])
 
-print ("Soma do número de questões respondidas em cada grupo: "+ str(numeroDeQuestoesRespondidas))
-print ("Soma do número de questões respondidas por todos em um mesmo grupo: "+ str(numeroDeQuestoesRespondidasPorTodosNoGrupo))
+print ("Soma do número de questões respondidas em cada grupo:", numeroDeQuestoesRespondidas)
+print ("Soma do número de questões respondidas por todos em um mesmo grupo:", numeroDeQuestoesRespondidasPorTodosNoGrupo)
