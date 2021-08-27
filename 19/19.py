@@ -57,25 +57,19 @@ print("Número de mensagens que satisfazem a regra 0:", numeroDeMensagensQueSati
 #2) Como a regra zero precisa das duas regras acima seguidas, logo, são (M+N) strings que satisfazem a 42, mais M que satisfazem a 31.
 #3) Para cada mensagem, ir removendo regras 42 até onde der, depois remover as 31 e ver se a quantidade de remoções é plausível (M>N>0).
 
-tamanhoRegra42 = [len(mensagem) for mensagem in dicionarioRegras[42]][0]  #Para adequar-se aos casos exemplo também, por exemplo
+tamanhoRegra42 = [len(mensagem) for mensagem in dicionarioRegras[42]][0]  #Para adequar-se aos casos exemplo também.
 tamanhoRegra31 = [len(mensagem) for mensagem in dicionarioRegras[31]][0]
 numeroDeMensagensQueSatisfazemARegra0 = 0
 for mensagem in linhasMensagens:
 	palavraReduzida = mensagem
 	remocoesDo42 = remocoesDo31 = 0 #Contabilizar o número.
-	while True: #Vai removendo as regras 42 do começo da mensagem até não poder mais, contabilizando o número de vezes.
-		if palavraReduzida[:tamanhoRegra42] in dicionarioRegras[42]:
+	while palavraReduzida[:tamanhoRegra42] in dicionarioRegras[42]: #Remove exemplos de regra 42 do começo de cada mensagem.
 			palavraReduzida = palavraReduzida[tamanhoRegra42:]
 			remocoesDo42 += 1
-		else:
-			break
 
-	while True: #O que sobrar, precisa satisfazeri múltiplas vezes a regra 31 no final:
-		if palavraReduzida[-tamanhoRegra31:] in dicionarioRegras[31]:
+	while palavraReduzida[-tamanhoRegra31:] in dicionarioRegras[31]: #Remove exemplos de regra 31 do final de cada mensagem.
 			palavraReduzida = palavraReduzida[:-tamanhoRegra31]
 			remocoesDo31 += 1
-		else:
-			break
 
 	if not palavraReduzida: #Não pode ter sobrado nada no final.
 		if remocoesDo42 > 0 and remocoesDo31 > 0: #Precisa ter feito no mínimo 1 remoção de cada
