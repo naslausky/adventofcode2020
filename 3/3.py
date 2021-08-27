@@ -25,4 +25,5 @@ for angulo in angulos:
 	numeroDeArvoresEncontradas = contarArvoresNaDescida(angulo)
 	#print(numeroDeArvoresEncontradas)
 	multiplicacaoDoNumeroDeArvores*=numeroDeArvoresEncontradas
+print("Número de árvores encontradas no ângulo 3,1: ", contarArvoresNaDescida((3,1)))
 print("Multiplicação de todos os números encontrados: ", multiplicacaoDoNumeroDeArvores)
