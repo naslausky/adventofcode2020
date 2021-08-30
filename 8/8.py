@@ -40,7 +40,7 @@ for indiceDaInstrucaoASerAlterada in range(0,len(instrucoes)):
 	concluiuComExito, valorAcumulador = seguirInstrucoes()
 	if concluiuComExito:
 		print("Valor do acumulador antes do programa concluir com êxito:", valorAcumulador)
-		print("Para isso foi trocada a instrução:", indiceDaInstrucaoASerAlterada)
+		#print("Para isso foi trocada a instrução:", indiceDaInstrucaoASerAlterada)
 		break
 	#Troca de volta e segue o baile:
 	instrucoes[indiceDaInstrucaoASerAlterada] = trocaInstrucao(instrucoes[indiceDaInstrucaoASerAlterada])

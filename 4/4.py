@@ -82,4 +82,4 @@ for passaporte in passaportesComTodosOsCampos:
 	if todosOsCamposValidos:
 		passaportesValidos.append(passaporte)
 
-print("Número de passaportes válidos: ", len(passaportesValidos))
+print("Número de passaportes válidos com todos os campos válidos:", len(passaportesValidos))

@@ -1,6 +1,6 @@
 #Desafio do dia 01/12/2020
-#a)Receber uma lista de números, e verificar qual par tem soma 2020
-#b)Verificar qual trio tem soma 2020
+#a)Receber uma lista de números, e verificar qual par tem soma 2020.
+#b)Verificar qual trio tem soma 2020.
 
 with open ("input.txt") as file:
 	numeros = file.read().splitlines()
@@ -18,12 +18,12 @@ for chave, valor in dicionarioModulos.items():
 		a = [(x,y) for x in dicionarioModulos[10-chave] for y in valor if x+y==2020]
 		if a:
 			parEncontrado = a[0]
-			print("Encontrado os valores:", parEncontrado[0], "e", parEncontrado[1])
-			print("Multiplicação:", parEncontrado[0]*parEncontrado[1])
+			#print("Encontrado os valores:", parEncontrado[0], "e", parEncontrado[1])
+			print("Multiplicação do par que soma 2020:", parEncontrado[0]*parEncontrado[1])
 			break
 #Segunda parte:
 b = [(x,y,z) for x in numeros for y in numeros for z in numeros if (x+y+z)==2020]
 if b:
 	trioEncontrado = b[0]
-	print("Encontrado os valores:", trioEncontrado[0], trioEncontrado[1], "e", trioEncontrado[2])
-	print("Multiplicação:", trioEncontrado[0] * trioEncontrado[1] * trioEncontrado[2])
+	#print("Encontrado os valores:", trioEncontrado[0], trioEncontrado[1], "e", trioEncontrado[2])
+	print("Multiplicação do trio que soma 2020:", trioEncontrado[0] * trioEncontrado[1] * trioEncontrado[2])
