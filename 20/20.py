@@ -1,4 +1,9 @@
+#Desafio do dia 20/12/2020
+#a) Receber vários segmentos de um mapa. 
+# Os segmentos são adjuntos a outros por bordas iguais. Descobrir quais os Ids segmentos das bordas. 
+#b) Formar o mapa e contar quantas vezes um padrão informado ocorre.
 import re
+
 class Tile:#Classe que representa uma peça do mapa
 	def __init__(self, strings, ind):
 		self.caracteres = strings
@@ -48,6 +53,31 @@ class Tile:#Classe que representa uma peça do mapa
 				return
 	def removerBordas(self):
 		self.caracteres = [string[1:-1] for string in self.caracteres[1:-1]]
+
+	def imprimir(self):
+		for linha in self.caracteres:
+			print(linha)
+
+	def contabilizarMonstros(self, padraoMonstroMarinho):
+		alturaMonstro = len(padraoMonstroMarinho)
+		larguraMonstro = len(padraoMonstroMarinho[0])
+		alturaImagem = len(self.caracteres)
+		larguraImagem = len(self.linhaSuperior())
+		numeroDeMonstros = 0
+		for indiceLinha in range(alturaImagem - alturaMonstro + 1):
+			for indiceColuna in range (larguraImagem - larguraMonstro + 1):
+				linhaSuperior = self.caracteres[indiceLinha][indiceColuna:indiceColuna+larguraMonstro]
+				linhaDoMeio = self.caracteres[indiceLinha+1][indiceColuna:indiceColuna+larguraMonstro]
+				linhaInferior = self.caracteres[indiceLinha+2][indiceColuna:indiceColuna+larguraMonstro]
+				if (re.match(padraoMonstroMarinho[0], linhaSuperior) and
+					re.match(padraoMonstroMarinho[1], linhaDoMeio) and
+					re.match(padraoMonstroMarinho[2],linhaInferior)):
+						numeroDeMonstros+=1
+		return numeroDeMonstros
+
+	def contabilizarTralhas(self):
+		return sum([x.count('#') for x in self.caracteres])
+
 tiles = []
 numeroTileAtual = 0
 tileAtual = []
@@ -84,14 +114,42 @@ print(multiplicacao)
 #Parte 2:
 dicionarioTiles = {tile.indice:tile for tile in tiles}
 tilesJaUsados = []
+#O primeiro precisa ser rodado até saber a orientação correta. Isto é, ficar com as arestas não encaixantes para cima e para esquerda.
+#O gabarito é rotacionar() uma vez:
+for _ in range(4):
+	achou = True
+	for indiceTile2, arestas2 in arestasDosTiles.items():
+		if indiceTile2 == primeiroTile:
+			continue
+		if dicionarioTiles[primeiroTile].linhaSuperior() in arestas2:
+			achou = False
+		if dicionarioTiles[primeiroTile].linhaEsquerda() in arestas2:
+			achou = False
+	if achou:
+		break
+	else:
+		dicionarioTiles[primeiroTile].rotacionar()
 
-#O primeiro precisa ser rodado até saber a orientação correta. Por agora está bugado a detecção automática e eu inseri o "gabarito" manualmente.
-dicionarioTiles[primeiroTile].rotacionar()
-#############
+if not achou:
+	dicionarioTiles[primeiroTile].espelhar()
+	for _ in range(4):
+		achou = True
+		for indiceTile2, arestas2 in arestasDosTiles.items():
+			if indiceTile2 == primeiroTile:
+				continue
+			if dicionarioTiles[primeiroTile].linhaSuperior() in arestas2:
+				achou = False
+			if dicionarioTiles[primeiroTile].linhaEsquerda() in arestas2:
+				achou = False
+		if achou:
+			break
+		else:
+			dicionarioTiles[primeiroTile].rotacionar()
+#Vai juntando os tiles para descobrir a posição de cada um. Anota os ids em uma tilesJaUsados.
 for tile in tiles:
 	if tile.indice == primeiroTile:
 		tilesJaUsados.append(tile.indice)
-numeroDeTiles = int(len(tiles)**(1/2)) #O enunciado diz que é uma imagem quadrada
+numeroDeTiles = int(len(tiles)**(1/2)) #O enunciado diz que é uma imagem quadrada.
 for linha in range (numeroDeTiles):
 	for coluna in range((1 if linha==0 else 0), numeroDeTiles):
 		arestaAEncaixar = dicionarioTiles[tilesJaUsados[-12]].linhaInferior() if coluna==0 else dicionarioTiles[tilesJaUsados[-1]].linhaDireita()
@@ -106,37 +164,20 @@ primeiraLinha = ''.join([dicionarioTiles[i].caracteres[0] for i in tilesJaUsados
 imagemFinal = []
 for indiceImagem in range (numeroDeTiles):
 	linhasASeremAdicionadas = [
-				''.join([dicionarioTiles[i].caracteres[indiceLinha]  for i in tilesJaUsados[indiceImagem*12:((indiceImagem+1)*12)]]) 
+				''.join([dicionarioTiles[i].caracteres[indiceLinha]  
+					for i in tilesJaUsados[indiceImagem*12 : ((indiceImagem+1)*12)]]) 
 					for indiceLinha in range(8)]
 	imagemFinal.extend(linhasASeremAdicionadas)
-#for i in imagemFinal:
-#	print(i)
-#print(len(imagemFinal), len(imagemFinal[0]))
+
+tileFinal = Tile(imagemFinal,0) #Cria um tile da imagem final pra poder reaproveitar os métodos.
+
 padraoMonstroMarinho = ['..................#.',
                         '#....##....##....###',
                         '.#..#..#..#..#..#...']
-alturaMonstro = len(padraoMonstroMarinho)
-larguraMonstro = len(padraoMonstroMarinho[0])
-larguraImagem = len(imagemFinal[0])
-
-
-for indice, linha in enumerate(imagemFinal):
-	imagemFinal[indice] = "".join(list(reversed(linha)))
-
-numeroDeMonstros = 0
-for indiceLinha in range(len(imagemFinal) - alturaMonstro + 1):
-	for indiceColuna in range (larguraImagem - larguraMonstro + 1):
-		linhaSuperior = imagemFinal[indiceLinha][indiceColuna:indiceColuna+larguraMonstro]
-		linhaDoMeio = imagemFinal[indiceLinha+1][indiceColuna:indiceColuna+larguraMonstro]
-		linhaInferior = imagemFinal[indiceLinha+2][indiceColuna:indiceColuna+larguraMonstro]
-		if (re.match(padraoMonstroMarinho[0], linhaSuperior) and
-			re.match(padraoMonstroMarinho[1], linhaDoMeio) and
-			re.match(padraoMonstroMarinho[2],linhaInferior)):
-				numeroDeMonstros+=1
-
-#print(numeroDeMonstros)
+tileFinal.espelhar()
+numeroDeMonstros = tileFinal.contabilizarMonstros(padraoMonstroMarinho)
 
 numeroDeTralhasEmCadaMonstro = sum([x.count('#') for x in padraoMonstroMarinho])
-numeroDeTralhasNaImagemFinal = sum([x.count('#') for x in imagemFinal])
+numeroDeTralhasNaImagemFinal = tileFinal.contabilizarTralhas() 
 
 print(numeroDeTralhasNaImagemFinal-(numeroDeTralhasEmCadaMonstro*numeroDeMonstros))
