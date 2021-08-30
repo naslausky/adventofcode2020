@@ -3,8 +3,7 @@
 # Os segmentos são adjuntos a outros por bordas iguais. Descobrir quais os Ids segmentos das bordas. 
 #b) Formar o mapa e contar quantas vezes um padrão informado ocorre.
 import re
-
-class Tile:#Classe que representa uma peça do mapa
+class Tile:#Classe que representa uma peça do mapa.
 	def __init__(self, strings, ind):
 		self.caracteres = strings
 		self.indice = ind 
@@ -30,16 +29,17 @@ class Tile:#Classe que representa uma peça do mapa
 	def obterTodasAsLaterais(self):
 		return self.obterLateraisEspelhadas()+self.obterLateraisDoTile()
 
-	def espelhar(self):#Método que espelha horizontalmente os caracteres do tile
+	def espelhar(self):#Método que espelha horizontalmente os caracteres do tile.
 		for indice, linha in enumerate(self.caracteres):
 			self.caracteres[indice] = "".join(list(reversed(linha)))
 
-	def rotacionar(self):#Método que rotaciona um tile no sentido anti-horário
+	def rotacionar(self):#Método que rotaciona um tile no sentido anti-horário.
 		novosCaracteres = []
 		for i in range(len(self.caracteres[0])):
 			novaLinha = "".join([linha[-i-1] for linha in self.caracteres])
 			novosCaracteres.append(novaLinha)
 		self.caracteres = novosCaracteres
+
 	def rotacionarAteEncaixar (self, aresta, topo=False): #Método que rotaciona até encaixar no topo ou na lateral esquerda.
 		metodoDaArestaACombinar = self.linhaSuperior if topo else self.linhaEsquerda
 		for _ in range(4):
@@ -51,6 +51,7 @@ class Tile:#Classe que representa uma peça do mapa
 			self.rotacionar()
 			if metodoDaArestaACombinar() == aresta: #Encaixou
 				return
+
 	def removerBordas(self):
 		self.caracteres = [string[1:-1] for string in self.caracteres[1:-1]]
 
@@ -58,7 +59,7 @@ class Tile:#Classe que representa uma peça do mapa
 		for linha in self.caracteres:
 			print(linha)
 
-	def contabilizarMonstros(self, padraoMonstroMarinho):
+	def contabilizarMonstros(self, padraoMonstroMarinho): #Método que contabiliza quantas vezes o padrão aparece na imagem. Espero que não tenha monstros sobrepostos :)
 		alturaMonstro = len(padraoMonstroMarinho)
 		larguraMonstro = len(padraoMonstroMarinho[0])
 		alturaImagem = len(self.caracteres)
@@ -75,6 +76,19 @@ class Tile:#Classe que representa uma peça do mapa
 						numeroDeMonstros+=1
 		return numeroDeMonstros
 
+	def rotacionarAteEncontrarMonstros(self, padraoMonstroMarinho): #Método que vai rodando e espelhando até achar a orientação que retorna monstros marinhos. 
+		for _ in range(4):
+			if self.contabilizarMonstros(padraoMonstroMarinho):
+				break
+			self.rotacionar()
+		if not self.contabilizarMonstros(padraoMonstroMarinho):
+			self.espelhar()
+			for _ in range(4):
+				if self.contabilizarMonstros(padraoMonstroMarinho):
+					break
+				self.rotacionar()
+		return self.contabilizarMonstros(padraoMonstroMarinho)
+
 	def contabilizarTralhas(self):
 		return sum([x.count('#') for x in self.caracteres])
 
@@ -83,7 +97,7 @@ numeroTileAtual = 0
 tileAtual = []
 with open('input.txt') as file:
 	for linha in file:
-		if linha == '\n': #Chegou ao fim de uma tile
+		if linha == '\n': #Chegou ao fim de uma tile.
 			tiles.append(Tile(tileAtual,numeroTileAtual))
 			tileAtual = []
 		else:
@@ -109,13 +123,12 @@ for indiceTile,arestas in arestasDosTiles.items():
 		multiplicacao*=indiceTile
 		primeiroTile = indiceTile
 		primeirasArestas = arestasCombinantesDoTile[:]
-print(multiplicacao)
+print('O produto dos IDs dos tiles dos cantos é:', multiplicacao)
 
 #Parte 2:
 dicionarioTiles = {tile.indice:tile for tile in tiles}
 tilesJaUsados = []
 #O primeiro precisa ser rodado até saber a orientação correta. Isto é, ficar com as arestas não encaixantes para cima e para esquerda.
-#O gabarito é rotacionar() uma vez:
 for _ in range(4):
 	achou = True
 	for indiceTile2, arestas2 in arestasDosTiles.items():
@@ -145,6 +158,7 @@ if not achou:
 			break
 		else:
 			dicionarioTiles[primeiroTile].rotacionar()
+
 #Vai juntando os tiles para descobrir a posição de cada um. Anota os ids em uma tilesJaUsados.
 for tile in tiles:
 	if tile.indice == primeiroTile:
@@ -158,6 +172,7 @@ for linha in range (numeroDeTiles):
 				if arestaAEncaixar in tile.obterTodasAsLaterais(): #Tile correto.
 					tilesJaUsados.append(tile.indice)
 					tile.rotacionarAteEncaixar(arestaAEncaixar, (coluna==0))
+
 #Forma uma imagem final sem as bordas de cada tile:
 [t.removerBordas() for t in tiles]
 primeiraLinha = ''.join([dicionarioTiles[i].caracteres[0] for i in tilesJaUsados[0:11]])
@@ -172,12 +187,10 @@ for indiceImagem in range (numeroDeTiles):
 tileFinal = Tile(imagemFinal,0) #Cria um tile da imagem final pra poder reaproveitar os métodos.
 
 padraoMonstroMarinho = ['..................#.',
-                        '#....##....##....###',
-                        '.#..#..#..#..#..#...']
-tileFinal.espelhar()
-numeroDeMonstros = tileFinal.contabilizarMonstros(padraoMonstroMarinho)
+			'#....##....##....###',
+			'.#..#..#..#..#..#...']
 
+numeroDeMonstros = tileFinal.rotacionarAteEncontrarMonstros(padraoMonstroMarinho)
 numeroDeTralhasEmCadaMonstro = sum([x.count('#') for x in padraoMonstroMarinho])
 numeroDeTralhasNaImagemFinal = tileFinal.contabilizarTralhas() 
-
-print(numeroDeTralhasNaImagemFinal-(numeroDeTralhasEmCadaMonstro*numeroDeMonstros))
+print('Número de tralhas que não fazem parte de um monstro:', numeroDeTralhasNaImagemFinal - (numeroDeTralhasEmCadaMonstro*numeroDeMonstros))
