@@ -52,6 +52,36 @@ class Tile:#Classe que representa uma peça do mapa.
 			if metodoDaArestaACombinar() == aresta: #Encaixou
 				return
 
+	def rotacionarParaPrimeiraPosicao(self, arestasDosTiles): #O primeiro tile, do canto superior esquerdo, precisa estar com os lados sem combinações virados para cima e para esquerda.
+		for _ in range(4):
+			achou = True
+			for indiceTile2, arestas2 in arestasDosTiles.items():
+				if indiceTile2 == primeiroTile:
+					continue
+				if self.linhaSuperior() in arestas2:
+					achou = False
+				if self.linhaEsquerda() in arestas2:
+					achou = False
+			if achou:
+				break
+			else:
+				self.rotacionar()
+		if not achou:
+			dicionarioTiles[primeiroTile].espelhar()
+			for _ in range(4):
+				achou = True
+				for indiceTile2, arestas2 in arestasDosTiles.items():
+					if indiceTile2 == primeiroTile:
+						continue
+					if self.linhaSuperior() in arestas2:
+						achou = False
+					if self.linhaEsquerda() in arestas2:
+						achou = False
+				if achou:
+					break
+				else:
+					self.rotacionar()
+
 	def removerBordas(self):
 		self.caracteres = [string[1:-1] for string in self.caracteres[1:-1]]
 
@@ -128,41 +158,10 @@ print('O produto dos IDs dos tiles dos cantos é:', multiplicacao)
 #Parte 2:
 dicionarioTiles = {tile.indice:tile for tile in tiles}
 tilesJaUsados = []
-#O primeiro precisa ser rodado até saber a orientação correta. Isto é, ficar com as arestas não encaixantes para cima e para esquerda.
-for _ in range(4):
-	achou = True
-	for indiceTile2, arestas2 in arestasDosTiles.items():
-		if indiceTile2 == primeiroTile:
-			continue
-		if dicionarioTiles[primeiroTile].linhaSuperior() in arestas2:
-			achou = False
-		if dicionarioTiles[primeiroTile].linhaEsquerda() in arestas2:
-			achou = False
-	if achou:
-		break
-	else:
-		dicionarioTiles[primeiroTile].rotacionar()
-
-if not achou:
-	dicionarioTiles[primeiroTile].espelhar()
-	for _ in range(4):
-		achou = True
-		for indiceTile2, arestas2 in arestasDosTiles.items():
-			if indiceTile2 == primeiroTile:
-				continue
-			if dicionarioTiles[primeiroTile].linhaSuperior() in arestas2:
-				achou = False
-			if dicionarioTiles[primeiroTile].linhaEsquerda() in arestas2:
-				achou = False
-		if achou:
-			break
-		else:
-			dicionarioTiles[primeiroTile].rotacionar()
+dicionarioTiles[primeiroTile].rotacionarParaPrimeiraPosicao(arestasDosTiles)
 
 #Vai juntando os tiles para descobrir a posição de cada um. Anota os ids em uma tilesJaUsados.
-for tile in tiles:
-	if tile.indice == primeiroTile:
-		tilesJaUsados.append(tile.indice)
+tilesJaUsados.append(primeiroTile)
 numeroDeTiles = int(len(tiles)**(1/2)) #O enunciado diz que é uma imagem quadrada.
 for linha in range (numeroDeTiles):
 	for coluna in range((1 if linha==0 else 0), numeroDeTiles):
@@ -183,13 +182,11 @@ for indiceImagem in range (numeroDeTiles):
 					for i in tilesJaUsados[indiceImagem*12 : ((indiceImagem+1)*12)]]) 
 					for indiceLinha in range(8)]
 	imagemFinal.extend(linhasASeremAdicionadas)
-
 tileFinal = Tile(imagemFinal,0) #Cria um tile da imagem final pra poder reaproveitar os métodos.
 
 padraoMonstroMarinho = ['..................#.',
 			'#....##....##....###',
 			'.#..#..#..#..#..#...']
-
 numeroDeMonstros = tileFinal.rotacionarAteEncontrarMonstros(padraoMonstroMarinho)
 numeroDeTralhasEmCadaMonstro = sum([x.count('#') for x in padraoMonstroMarinho])
 numeroDeTralhasNaImagemFinal = tileFinal.contabilizarTralhas() 
