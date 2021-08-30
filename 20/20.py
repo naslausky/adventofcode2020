@@ -1,3 +1,4 @@
+import re
 class Tile:#Classe que representa uma peça do mapa
 	def __init__(self, strings, ind):
 		self.caracteres = strings
@@ -104,13 +105,38 @@ for linha in range (numeroDeTiles):
 primeiraLinha = ''.join([dicionarioTiles[i].caracteres[0] for i in tilesJaUsados[0:11]])
 imagemFinal = []
 for indiceImagem in range (numeroDeTiles):
-	linhasASeremAdicionadas = [''.join([dicionarioTiles[i].caracteres[indiceLinha]  for i in tilesJaUsados[indiceImagem*12:((indiceImagem+1)*12)-1]]) for indiceLinha in range(8)]
+	linhasASeremAdicionadas = [
+				''.join([dicionarioTiles[i].caracteres[indiceLinha]  for i in tilesJaUsados[indiceImagem*12:((indiceImagem+1)*12)]]) 
+					for indiceLinha in range(8)]
 	imagemFinal.extend(linhasASeremAdicionadas)
-
 #for i in imagemFinal:
 #	print(i)
+#print(len(imagemFinal), len(imagemFinal[0]))
+padraoMonstroMarinho = ['..................#.',
+                        '#....##....##....###',
+                        '.#..#..#..#..#..#...']
+alturaMonstro = len(padraoMonstroMarinho)
+larguraMonstro = len(padraoMonstroMarinho[0])
+larguraImagem = len(imagemFinal[0])
 
-padraoMonstroMarinho = ['                  # ',
-                        '#    ##    ##    ###',
-                        ' #  #  #  #  #  #   ']
-	
+
+for indice, linha in enumerate(imagemFinal):
+	imagemFinal[indice] = "".join(list(reversed(linha)))
+
+numeroDeMonstros = 0
+for indiceLinha in range(len(imagemFinal) - alturaMonstro + 1):
+	for indiceColuna in range (larguraImagem - larguraMonstro + 1):
+		linhaSuperior = imagemFinal[indiceLinha][indiceColuna:indiceColuna+larguraMonstro]
+		linhaDoMeio = imagemFinal[indiceLinha+1][indiceColuna:indiceColuna+larguraMonstro]
+		linhaInferior = imagemFinal[indiceLinha+2][indiceColuna:indiceColuna+larguraMonstro]
+		if (re.match(padraoMonstroMarinho[0], linhaSuperior) and
+			re.match(padraoMonstroMarinho[1], linhaDoMeio) and
+			re.match(padraoMonstroMarinho[2],linhaInferior)):
+				numeroDeMonstros+=1
+
+#print(numeroDeMonstros)
+
+numeroDeTralhasEmCadaMonstro = sum([x.count('#') for x in padraoMonstroMarinho])
+numeroDeTralhasNaImagemFinal = sum([x.count('#') for x in imagemFinal])
+
+print(numeroDeTralhasNaImagemFinal-(numeroDeTralhasEmCadaMonstro*numeroDeMonstros))
