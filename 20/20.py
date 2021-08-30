@@ -174,7 +174,6 @@ for linha in range (numeroDeTiles):
 
 #Forma uma imagem final sem as bordas de cada tile:
 [t.removerBordas() for t in tiles]
-primeiraLinha = ''.join([dicionarioTiles[i].caracteres[0] for i in tilesJaUsados[0:11]])
 imagemFinal = []
 for indiceImagem in range (numeroDeTiles):
 	linhasASeremAdicionadas = [
