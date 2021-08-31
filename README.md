@@ -1,7 +1,7 @@
 # Advent of Code 2020
 [English](#english) below.</br>
 
-## Repositório dedicado à resolução de problemas do [Advent of Code de 2020](https://adventofcode.com/2015).
+## Repositório dedicado à resolução de problemas do [Advent of Code de 2020](https://adventofcode.com/2020).
 
 O Advent of Code é um evento anual que ocorre durante o mês de dezembro, até o dia 25 (Fazendo uma referência a [advento](https://pt.wikipedia.org/wiki/Advento)). A cada dia são liberados desafios (quebra-cabeças) relacionados a programação, mas que não necessariamente precisam ser resolvidos com programação. Cada problema para ser respondido precisa apenas de uma resposta final, que depende de uma entrada que é específica para cada usuário. Por dia são liberados duas partes de um mesmo desafio, muitas vezes relacionadas entre si, e a segunda parte apenas é liberada após a conclusão da primeira.
 
@@ -14,7 +14,7 @@ Os meus repositórios relativos a outras edições desse evento podem ser encont
 
 ### English
 --- 
-## Repository dedicated to the [2020 advent of code](https://adventofcode.com/2015) problem solving.
+## Repository dedicated to the [2020 Advent of Code](https://adventofcode.com/2020) problem solving.
 
 Advent of code is a annual event that happens every december, up to the 25th, in the form of a [Advent Calendar](https://en.wikipedia.org/wiki/Advent_calendar). Every day puzzles, mostly related to programming, are released and doesn't necessarily require programming to solve it. In order to be answered, each puzzle needs only a final answer which depends on an input specific to each user. Every day the puzzle is released in the form of 2 parts related to each other. The second part may only be read and answered after correctly answering the first one.
 
