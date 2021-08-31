@@ -9,7 +9,7 @@ Existe uma disputa e os 100 primeiros a resolverem um desafio entram em um quadr
 
 Abaixo deixei uma tabela com o tempo que as minhas resoluções de cada desafio demoraram. Não é garantia da complexidade de cada algoritmo, mas serve pra dar uma ideia. Cada código resolve sempre as duas partes, e não prometo que essas soluções sejam otimizadas ou que funcionem para entradas mais genéricas. O que prometo é que para as entradas que eu recebi elas retornam a resposta correta. Todos os programas foram feitos utilizando a linguagem [Python3](https://www.python.org/) e meu input também está incluso no diretório de cada dia.
 
-Os meus repositórios relativos a outras edições desse evento podem ser encontrados [aqui](https://github.com/naslausky?tab=repositories&q=adventofcode)
+Os meus repositórios relativos a outras edições desse evento podem ser encontrados [aqui](https://github.com/naslausky?tab=repositories&q=adventofcode).
 
 
 ### English
@@ -22,7 +22,7 @@ There is a score regarding the first hundred people who correctly answer each pu
 
 Below I've left a table with the running time of each of my solutions. It's not the same as the complexity, but it may give a direction. Every script is always solving both parts, and I can't assure it's the best or optimal solution, neither that they work with a more generic input. I *can* assure that for my input they gave the correct answer. All programs have been solved using [Python3](https://www.python.org/) and my input is also within each day folder.
 
-My other repo's regarding the other events can be found [here](https://github.com/naslausky?tab=repositories&q=adventofcode)
+My other repo's regarding the other events can be found [here](https://github.com/naslausky?tab=repositories&q=adventofcode).
 
 | Dia / Day  |  Tempo de execução / Running time  |
 | ------------------- | ------------------- |
